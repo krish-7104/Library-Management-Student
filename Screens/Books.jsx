@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {
   StyleSheet,
   Image,
@@ -14,10 +14,31 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import {API_LINK} from '../api-link';
 
-const Books = () => {
+const Books = ({navigation}) => {
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTintColor: 'black',
+      title: 'Home',
+      headerTitle: () => {
+        return (
+          <Text
+            style={{
+              fontSize: 20,
+              marginTop: 6,
+              marginLeft: -8,
+              color: '#000',
+              fontFamily: 'Poppins-SemiBold',
+            }}>
+            Books
+          </Text>
+        );
+      },
+    });
+  }, [navigation]);
 
   useEffect(() => {
     SearchBookHandler();
@@ -72,17 +93,14 @@ const Books = () => {
           </View>
           <View style={{width: '100%'}}>
             {books.map((book, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.cardContainer}
-                activeOpacity={0.9}>
+              <View key={index} style={styles.cardContainer}>
                 <Image source={{uri: book.image}} style={styles.bookImage} />
                 <View style={styles.cardDetails}>
                   <Text style={styles.bookTitle}>{book.name}</Text>
                   <Text style={styles.authorText}>Author: {book.author}</Text>
                   <Text style={styles.stockText}>Stock: {book.stock}</Text>
                 </View>
-              </TouchableOpacity>
+              </View>
             ))}
           </View>
         </ScrollView>
@@ -118,20 +136,28 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  cardDetails: {
+    flex: 1,
+    padding: 10,
+    fontFamily: 'Poppins-Regular',
+  },
   bookTitle: {
     fontWeight: '600',
-    fontSize: 20,
+    fontSize: 18,
     marginBottom: 5,
     color: '#000',
+    fontFamily: 'Poppins-Medium',
   },
   authorText: {
-    fontSize: 16,
+    fontSize: 14,
     marginBottom: 5,
     color: '#555',
+    fontFamily: 'Poppins-Regular',
   },
   stockText: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#555',
+    fontFamily: 'Poppins-Regular',
   },
 });
 
