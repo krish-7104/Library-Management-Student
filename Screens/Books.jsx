@@ -68,7 +68,7 @@ const Books = ({navigation}) => {
           <View
             style={{
               backgroundColor: 'white',
-              marginVertical: 16,
+              marginVertical: 12,
               width: '100%',
               borderRadius: 4,
               flexDirection: 'row',
@@ -85,6 +85,7 @@ const Books = ({navigation}) => {
               style={{
                 color: 'black',
                 width: '90%',
+                fontFamily: 'Poppins-Regular',
               }}
             />
             <TouchableOpacity activeOpacity={0.8}>
@@ -94,7 +95,12 @@ const Books = ({navigation}) => {
           <View style={{width: '100%'}}>
             {books.map((book, index) => (
               <View key={index} style={styles.cardContainer}>
-                <Image source={{uri: book.image}} style={styles.bookImage} />
+                <Image
+                  source={{uri: book.image}}
+                  style={styles.bookImage}
+                  width={130}
+                  height={200}
+                />
                 <View style={styles.cardDetails}>
                   <Text style={styles.bookTitle}>{book.name}</Text>
                   <Text style={styles.authorText}>Author: {book.author}</Text>

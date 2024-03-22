@@ -140,7 +140,7 @@ const Dashboard = ({navigation}) => {
                       <Book
                         key={index + 'book'}
                         name="book"
-                        style={{fontSize: 28}}
+                        style={{fontSize: 28, color: '#00000090'}}
                       />
                     );
                   })}
@@ -198,6 +198,8 @@ const Dashboard = ({navigation}) => {
                       <Image
                         source={{uri: item.book.image}}
                         style={styles.bookImage}
+                        width={130}
+                        height={200}
                       />
                       <View style={styles.cardDetails}>
                         <Text style={styles.bookTitle}>{item.book.name}</Text>
@@ -246,6 +248,8 @@ const Dashboard = ({navigation}) => {
                       <Image
                         source={{uri: item.book.image}}
                         style={styles.bookImage}
+                        width={130}
+                        height={200}
                       />
                       <View style={styles.cardDetails}>
                         <Text style={styles.bookTitle}>{item.book.name}</Text>

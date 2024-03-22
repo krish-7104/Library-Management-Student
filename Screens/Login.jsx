@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   ToastAndroid,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
@@ -14,6 +15,7 @@ import {API_LINK} from '../api-link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const CheckLoginHandler = async () => {
       try {
@@ -33,14 +35,17 @@ const Login = ({navigation}) => {
   });
 
   const loginHandler = async () => {
+    setLoading(true);
     try {
       if (value.email) {
         const resp = await axios.post(`${API_LINK}/user/login`, value);
         try {
           await AsyncStorage.setItem('token', resp.data.data.token);
           navigation.navigate('Home');
+          setLoading(false);
         } catch (e) {}
       } else {
+        setLoading(false);
         Keyboard.dismiss();
         ToastAndroid.show('Enter Email Address!', ToastAndroid.SHORT);
       }
@@ -76,8 +81,12 @@ const Login = ({navigation}) => {
       <TouchableOpacity
         style={styles.btnCont}
         activeOpacity={0.4}
-        onPress={loginHandler}>
-        <Text style={styles.btnText}>Login Now!</Text>
+        onPress={!loading && loginHandler}>
+        {!loading ? (
+          <Text style={styles.btnText}>Login Now!</Text>
+        ) : (
+          <ActivityIndicator color={'white'} />
+        )}
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -88,9 +97,9 @@ export default Login;
 const styles = StyleSheet.create({
   title: {
     fontSize: 28,
-    color: 'black',
-    fontWeight: 'bold',
     marginBottom: 20,
+    fontFamily: 'Poppins-SemiBold',
+    color: 'black',
   },
   container: {
     flex: 1,
@@ -111,7 +120,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     marginBottom: 10,
     color: '#000',
-    fontFamily: 'Montserrat-Medium',
+    fontFamily: 'Poppins-Regular',
   },
   forgetText: {
     fontSize: 14,
@@ -120,13 +129,13 @@ const styles = StyleSheet.create({
     width: '100%',
     color: '#7c3aed',
     fontWeight: '600',
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Poppins-Regulars',
   },
   labelText: {
     marginBottom: 4,
     color: '#000',
     fontSize: 16,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Poppins-SemiBold',
   },
   btnCont: {
     backgroundColor: '#7c3aed',
@@ -140,12 +149,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#ffffff',
     fontSize: 18,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Poppins-SemiBold',
   },
   alreadyText: {
     marginTop: 20,
     color: '#000',
     fontSize: 15,
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: 'Poppins-SemiBold',
   },
 });

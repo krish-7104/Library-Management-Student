@@ -43,55 +43,73 @@ const Settings = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       {userData && (
-        <View style={{width: '90%'}}>
+        <View
+          style={{
+            width: '95%',
+            backgroundColor: 'white',
+            borderRadius: 6,
+            elevation: 2,
+            paddingHorizontal: 10,
+            paddingVertical: 12,
+          }}>
+          <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
+            Name:
+          </Text>
           <Text
             style={{
               color: '#000',
               fontFamily: 'Poppins-Regular',
               marginBottom: 8,
-              fontSize: 16,
+              fontSize: 18,
             }}>
-            <Text style={{fontFamily: 'Poppins-Medium'}}>Name</Text>:{' '}
             {userData.name}
           </Text>
+          <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
+            Enrollment No:
+          </Text>
           <Text
             style={{
               color: '#000',
               fontFamily: 'Poppins-Regular',
               marginBottom: 8,
-              fontSize: 16,
+              fontSize: 18,
             }}>
-            <Text style={{fontFamily: 'Poppins-Medium'}}>E No</Text>:{' '}
             {userData.enrollmentno}
           </Text>
+          <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
+            Phone No:
+          </Text>
           <Text
             style={{
               color: '#000',
               fontFamily: 'Poppins-Regular',
               marginBottom: 8,
-              fontSize: 16,
+              fontSize: 18,
             }}>
-            <Text style={{fontFamily: 'Poppins-Medium'}}>Ph No</Text>:{' '}
             {userData.phonenumber}
           </Text>
-          <Text
-            style={{
-              color: '#000',
-              fontFamily: 'Poppins-Regular',
-              marginBottom: 8,
-              fontSize: 16,
-            }}>
-            <Text style={{fontFamily: 'Poppins-Medium'}}>Email</Text>:{' '}
-            {userData.email}
+          <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
+            Email:
           </Text>
           <Text
             style={{
               color: '#000',
               fontFamily: 'Poppins-Regular',
               marginBottom: 8,
-              fontSize: 16,
+              fontSize: 18,
             }}>
-            <Text style={{fontFamily: 'Poppins-Medium'}}>Gender</Text>:
+            {userData.email}
+          </Text>
+          <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
+            Gender:
+          </Text>
+          <Text
+            style={{
+              color: '#000',
+              fontFamily: 'Poppins-Regular',
+              marginBottom: 8,
+              fontSize: 18,
+            }}>
             {userData.gender}
           </Text>
         </View>
