@@ -15,11 +15,13 @@ import {API_LINK} from '../api-link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {accent} from '../colors';
 import * as Animated from 'react-native-animatable';
+import Toast from './Components/Toast';
 
 const ForgetPassword = ({navigation}) => {
   const upperCardRef = useRef(null);
   const lowerCardRef = useRef(null);
-
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   useEffect(() => {
     if (upperCardRef.current) {
       upperCardRef.current.slideInDown(1000);
@@ -56,18 +58,25 @@ const ForgetPassword = ({navigation}) => {
           value,
         );
         try {
-          console.log(resp.data.message);
-          navigation.navigate('Login');
-          ToastAndroid.show(resp.data.message, ToastAndroid.SHORT);
+          setError(true);
+          setErrorMsg({msg: resp.data.message, type: 'success'});
           setLoading(false);
         } catch (e) {}
       } else {
         setLoading(false);
         Keyboard.dismiss();
-        ToastAndroid.show('Enter Email Address!', ToastAndroid.SHORT);
+        setError(true);
+        setErrorMsg({msg: 'Enter Email Address!', type: 'error'});
       }
     } catch (error) {
-      console.log(error);
+      setError(true);
+      if (error.response) {
+        setErrorMsg(error.response.data.message);
+        setErrorMsg({msg: error.response.data.message, type: 'error'});
+      } else {
+        setErrorMsg({msg: 'Something Went Wrong!', type: 'error'});
+      }
+      setLoading(false);
     }
   };
 
@@ -118,6 +127,7 @@ const ForgetPassword = ({navigation}) => {
           )}
         </TouchableOpacity>
       </Animated.View>
+      {error && <Toast msg={errorMsg} setError={setError} />}
     </SafeAreaView>
   );
 };

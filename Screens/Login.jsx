@@ -5,7 +5,6 @@ import {
   View,
   TouchableOpacity,
   SafeAreaView,
-  ToastAndroid,
   Keyboard,
   ActivityIndicator,
 } from 'react-native';
@@ -15,10 +14,12 @@ import {API_LINK} from '../api-link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {accent} from '../colors';
 import * as Animated from 'react-native-animatable';
-
+import Toast from './Components/Toast';
 const Login = ({navigation}) => {
   const upperCardRef = useRef(null);
   const lowerCardRef = useRef(null);
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     if (upperCardRef.current) {
@@ -49,6 +50,7 @@ const Login = ({navigation}) => {
 
   const loginHandler = async () => {
     setLoading(true);
+    setError(false);
     try {
       if (value.email) {
         const resp = await axios.post(`${API_LINK}/user/login`, value);
@@ -60,13 +62,16 @@ const Login = ({navigation}) => {
       } else {
         setLoading(false);
         Keyboard.dismiss();
-        ToastAndroid.show('Enter Email Address!', ToastAndroid.SHORT);
+        setError(true);
+        setErrorMsg({msg: 'Enter Email Address!', type: 'error'});
       }
     } catch (error) {
+      setError(true);
       if (error.response) {
-        ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
+        setErrorMsg(error.response.data.message);
+        setErrorMsg({msg: error.response.data.message, type: 'error'});
       } else {
-        ToastAndroid.show('Something Went Wrong!', ToastAndroid.SHORT);
+        setErrorMsg({msg: 'Something Went Wrong!', type: 'error'});
       }
       setLoading(false);
     }
@@ -128,6 +133,7 @@ const Login = ({navigation}) => {
           )}
         </TouchableOpacity>
       </Animated.View>
+      {error && <Toast msg={errorMsg} setError={setError} />}
     </SafeAreaView>
   );
 };
@@ -181,7 +187,7 @@ const styles = StyleSheet.create({
   btnCont: {
     backgroundColor: '#7c3aed',
     width: '85%',
-    paddingVertical: 12,
+    paddingVertical: 10,
     borderRadius: 8,
     elevation: 14,
     shadowColor: '#7c3aed',
@@ -189,7 +195,7 @@ const styles = StyleSheet.create({
   btnText: {
     textAlign: 'center',
     color: '#ffffff',
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Poppins-SemiBold',
   },
   alreadyText: {
