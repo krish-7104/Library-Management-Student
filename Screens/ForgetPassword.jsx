@@ -16,7 +16,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {accent} from '../colors';
 import * as Animated from 'react-native-animatable';
 
-const Login = ({navigation}) => {
+const ForgetPassword = ({navigation}) => {
   const upperCardRef = useRef(null);
   const lowerCardRef = useRef(null);
 
@@ -51,10 +51,14 @@ const Login = ({navigation}) => {
     setLoading(true);
     try {
       if (value.email) {
-        const resp = await axios.post(`${API_LINK}/user/login`, value);
+        const resp = await axios.post(
+          `${API_LINK}/user/forget-password`,
+          value,
+        );
         try {
-          await AsyncStorage.setItem('token', resp.data.data.token);
-          navigation.navigate('Home');
+          console.log(resp.data.message);
+          navigation.navigate('Login');
+          ToastAndroid.show(resp.data.message, ToastAndroid.SHORT);
           setLoading(false);
         } catch (e) {}
       } else {
@@ -63,12 +67,7 @@ const Login = ({navigation}) => {
         ToastAndroid.show('Enter Email Address!', ToastAndroid.SHORT);
       }
     } catch (error) {
-      if (error.response) {
-        ToastAndroid.show(error.response.data.message, ToastAndroid.SHORT);
-      } else {
-        ToastAndroid.show('Something Went Wrong!', ToastAndroid.SHORT);
-      }
-      setLoading(false);
+      console.log(error);
     }
   };
 
@@ -79,14 +78,14 @@ const Login = ({navigation}) => {
         animation="slideInDown"
         duration={1000}
         style={styles.title}>
-        GCET LIBRARY
+        Forget Password
       </Animated.Text>
       <Animated.View
         ref={lowerCardRef}
         animation="slideInUp"
         duration={1000}
         style={{
-          height: '70%',
+          height: '50%',
           width: '100%',
           justifyContent: 'center',
           alignItems: 'center',
@@ -101,28 +100,19 @@ const Login = ({navigation}) => {
             value={value.email}
             onChangeText={text => setValue({...value, email: text})}
             style={styles.input}
-            selectionColor={accent}
-          />
-          <Text style={styles.labelText}>Password</Text>
-          <TextInput
-            secureTextEntry
-            value={value.password}
-            onChangeText={text => setValue({...value, password: text})}
-            style={styles.input}
-            selectionColor={accent}
           />
         </View>
         <TouchableOpacity
           activeOpacity={0.4}
-          onPress={() => navigation.navigate('Forget Password')}>
-          <Text style={styles.forgetText}>Forget Password?</Text>
+          onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.forgetText}>Back to Login?</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnCont}
           activeOpacity={0.4}
           onPress={!loading && loginHandler}>
           {!loading ? (
-            <Text style={styles.btnText}>Login Now!</Text>
+            <Text style={styles.btnText}>Send Reset Link!</Text>
           ) : (
             <ActivityIndicator color={'white'} />
           )}
@@ -132,7 +122,7 @@ const Login = ({navigation}) => {
   );
 };
 
-export default Login;
+export default ForgetPassword;
 
 const styles = StyleSheet.create({
   title: {
@@ -140,7 +130,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontFamily: 'Poppins-SemiBold',
     color: 'white',
-    letterSpacing: 3,
   },
   container: {
     flex: 1,
@@ -181,7 +170,7 @@ const styles = StyleSheet.create({
   btnCont: {
     backgroundColor: '#7c3aed',
     width: '85%',
-    paddingVertical: 12,
+    paddingVertical: 10,
     borderRadius: 8,
     elevation: 14,
     shadowColor: '#7c3aed',
@@ -189,7 +178,7 @@ const styles = StyleSheet.create({
   btnText: {
     textAlign: 'center',
     color: '#ffffff',
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'Poppins-SemiBold',
   },
   alreadyText: {

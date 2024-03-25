@@ -4,40 +4,21 @@ import {
   SafeAreaView,
   ScrollView,
   View,
-  TouchableOpacity,
   Image,
   ActivityIndicator,
 } from 'react-native';
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {API_LINK} from '../api-link';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {accent} from '../colors';
 import Book from 'react-native-vector-icons/Feather';
+import NavTitle from './Components/NavTitle';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 const Dashboard = ({navigation}) => {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTintColor: 'black',
-      title: 'Home',
-      headerTitle: () => {
-        return (
-          <Text
-            style={{
-              fontSize: 20,
-              marginTop: 6,
-              marginLeft: -8,
-              color: '#000',
-              fontFamily: 'Poppins-SemiBold',
-            }}>
-            Library Student Dashboard
-          </Text>
-        );
-      },
-    });
-  }, [navigation]);
 
   const getUserData = async () => {
     setLoading(true);
@@ -69,209 +50,236 @@ const Dashboard = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView
-      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      {loading && (
-        <View>
-          <ActivityIndicator size={34} color={accent} />
-        </View>
-      )}
-      {!loading && (
-        <ScrollView style={{width: '94%'}} showsVerticalScrollIndicator={false}>
-          <Text
-            style={{
-              color: 'black',
-              paddingVertical: 14,
-              paddingHorizontal: 20,
-              fontWeight: 600,
-              fontSize: 18,
-              fontFamily: 'Poppins-Medium',
-            }}>
-            Welcome {userData.name} 👋
-          </Text>
-          <View
-            style={{
-              width: 'full',
-              backgroundColor: 'white',
-              borderRadius: 10,
-              elevation: 2,
-              marginHorizontal: 6,
-              paddingVertical: 12,
-              paddingHorizontal: 20,
-            }}>
+    <>
+      <NavTitle title={'Student Dashboard'} />
+      <SafeAreaView
+        style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        {loading && (
+          <View>
+            <ActivityIndicator size={34} color={accent} />
+          </View>
+        )}
+        {!loading && (
+          <ScrollView
+            style={{width: '94%'}}
+            showsVerticalScrollIndicator={false}>
             <Text
               style={{
                 color: 'black',
+                paddingTop: 22,
+                paddingBottom: 14,
+                paddingHorizontal: 20,
                 fontWeight: 600,
-                fontSize: 16,
-                fontFamily: 'Poppins-Medium',
-                textAlign: 'center',
-                marginBottom: 4,
+                fontSize: 20,
+                fontFamily: 'Poppins-SemiBold',
               }}>
-              Your Book Slots ({userData.bookSlot} Remaining)
+              Welcome {userData.name} 👋
             </Text>
             <View
               style={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                padding: 10,
+                width: 'full',
+                backgroundColor: 'white',
+                borderRadius: 10,
+                elevation: 2,
+                marginHorizontal: 6,
+                paddingVertical: 12,
+                paddingHorizontal: 20,
               }}>
-              {userData &&
-                userData.bookSlot &&
-                Array(5 - userData.bookSlot)
-                  .fill(0)
-                  .map((_, index) => {
-                    return (
-                      <Book
-                        key={index + 'book'}
-                        name="book"
-                        style={{fontSize: 28, color: accent}}
-                      />
-                    );
-                  })}
-              {userData &&
-                userData.bookSlot &&
-                Array(userData.bookSlot)
-                  .fill(0)
-                  .map((_, index) => {
-                    return (
-                      <Book
-                        key={index + 'book'}
-                        name="book"
-                        style={{fontSize: 28, color: '#00000090'}}
-                      />
-                    );
-                  })}
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: 600,
+                  fontSize: 16,
+                  fontFamily: 'Poppins-Medium',
+                  textAlign: 'center',
+                  marginBottom: 4,
+                }}>
+                Your Book Slots ({userData.bookSlot} Remaining)
+              </Text>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                  alignItems: 'center',
+                  padding: 10,
+                }}>
+                {userData &&
+                  userData.bookSlot &&
+                  Array(5 - userData.bookSlot)
+                    .fill(0)
+                    .map((_, index) => {
+                      return (
+                        <Book
+                          key={index + 'book'}
+                          name="book"
+                          style={{fontSize: 28, color: accent}}
+                        />
+                      );
+                    })}
+                {userData &&
+                  userData.bookSlot &&
+                  Array(userData.bookSlot)
+                    .fill(0)
+                    .map((_, index) => {
+                      return (
+                        <Book
+                          key={index + 'book'}
+                          name="book"
+                          style={{fontSize: 28, color: '#00000050'}}
+                        />
+                      );
+                    })}
+              </View>
             </View>
-          </View>
-          <View
-            style={{
-              width: 'full',
-              backgroundColor: 'white',
-              borderRadius: 10,
-              elevation: 2,
-              marginHorizontal: 6,
-              marginTop: 20,
-              paddingVertical: 12,
-              paddingHorizontal: 20,
-            }}>
-            <Text
+            <View
               style={{
-                color: 'black',
-                fontWeight: 600,
-                fontSize: 18,
-                fontFamily: 'Poppins-Medium',
-                textAlign: 'center',
-                paddingVertical: 6,
+                width: 'full',
+                backgroundColor: 'white',
+                borderRadius: 10,
+                elevation: 2,
+                marginHorizontal: 6,
+                marginTop: 20,
+                paddingVertical: 12,
+                paddingHorizontal: 20,
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexDirection: 'row',
+                alignItems: 'center',
               }}>
-              Fine To Pay: {userData ? userData.fine : 0}
-            </Text>
-          </View>
-          <View
-            style={{
-              width: '100%',
-              borderRadius: 10,
-              marginTop: 20,
-              paddingVertical: 12,
-              paddingHorizontal: 10,
-            }}>
-            <Text
+              <View
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'row',
+                }}>
+                <Ionicons name="cash-outline" color={accent} size={30} />
+                <Text
+                  style={{
+                    color: 'black',
+                    fontWeight: 600,
+                    fontSize: 18,
+                    fontFamily: 'Poppins-Medium',
+                    textAlign: 'center',
+                    marginLeft: 10,
+                  }}>
+                  Fine To Pay:
+                </Text>
+              </View>
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: 600,
+                  fontSize: 18,
+                  fontFamily: 'Poppins-Medium',
+                  textAlign: 'center',
+                }}>
+                ₹{userData ? userData.fine : 0}
+              </Text>
+            </View>
+            <View
               style={{
-                color: 'black',
-                fontWeight: 600,
-                fontSize: 18,
-                fontFamily: 'Poppins-SemiBold',
-                textAlign: 'center',
-                marginBottom: 14,
-                color: accent,
+                width: '100%',
+                borderRadius: 10,
+                marginTop: 20,
+                paddingVertical: 12,
+                paddingHorizontal: 10,
               }}>
-              Your Active Issued Books
-            </Text>
-            {userData &&
-              userData.issuedHistory &&
-              userData.issuedHistory.map((item, index) => {
-                if (!item.returned) {
-                  return (
-                    <View key={index} style={styles.cardContainer}>
-                      <Image
-                        source={{uri: item.book.image}}
-                        style={styles.bookImage}
-                        width={130}
-                        height={200}
-                      />
-                      <View style={styles.cardDetails}>
-                        <Text style={styles.bookTitle}>{item.book.name}</Text>
-                        <Text style={styles.authorText}>
-                          Author: {item.book.author}
-                        </Text>
-                        <Text style={styles.authorText}>Issued On:</Text>
-                        <Text style={styles.authorText}>
-                          {dateFormatter(item.createdAt)}
-                        </Text>
-                        <Text style={styles.authorText}>Return Date:</Text>
-                        <Text style={styles.authorText}>
-                          {dateFormatter(item.returnDate)}
-                        </Text>
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: 600,
+                  fontSize: 18,
+                  fontFamily: 'Poppins-SemiBold',
+                  textAlign: 'center',
+                  marginBottom: 14,
+                  color: accent,
+                }}>
+                Your Active Issued Books
+              </Text>
+              {userData &&
+                userData.issuedHistory &&
+                userData.issuedHistory.map((item, index) => {
+                  if (!item.returned) {
+                    return (
+                      <View key={index} style={styles.cardContainer}>
+                        <Image
+                          source={{uri: item.book.image}}
+                          style={styles.bookImage}
+                          width={130}
+                          height={200}
+                        />
+                        <View style={styles.cardDetails}>
+                          <Text style={styles.bookTitle} numberOfLines={2}>
+                            {item.book.name}
+                          </Text>
+
+                          <Text style={styles.authorText}>Issued On:</Text>
+                          <Text style={styles.authorText}>
+                            {dateFormatter(item.createdAt)}
+                          </Text>
+                          <Text style={styles.authorText}>Return Date:</Text>
+                          <Text style={styles.authorText}>
+                            {dateFormatter(item.returnDate)}
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                  );
-                }
-              })}
-          </View>
-          <View
-            style={{
-              width: '100%',
-              borderRadius: 10,
-              paddingVertical: 12,
-              paddingHorizontal: 10,
-            }}>
-            <Text
+                    );
+                  }
+                })}
+            </View>
+            <View
               style={{
-                color: 'black',
-                fontWeight: 600,
-                fontSize: 18,
-                fontFamily: 'Poppins-SemiBold',
-                textAlign: 'center',
-                marginBottom: 14,
-                color: accent,
+                width: '100%',
+                borderRadius: 10,
+                paddingVertical: 12,
+                paddingHorizontal: 10,
               }}>
-              Your Previously Issued Books
-            </Text>
-            {userData &&
-              userData.issuedHistory &&
-              userData.issuedHistory.map((item, index) => {
-                if (item.returned)
-                  return (
-                    <View key={index} style={styles.cardContainer}>
-                      <Image
-                        source={{uri: item.book.image}}
-                        style={styles.bookImage}
-                        width={130}
-                        height={200}
-                      />
-                      <View style={styles.cardDetails}>
-                        <Text style={styles.bookTitle}>{item.book.name}</Text>
-                        <Text style={styles.authorText}>
-                          Author: {item.book.author}
-                        </Text>
-                        <Text style={styles.authorText}>Issued On:</Text>
-                        <Text style={styles.authorText}>
-                          {dateFormatter(item.createdAt)}
-                        </Text>
-                        <Text style={styles.authorText}>Returned On:</Text>
-                        <Text style={styles.authorText}>
-                          {dateFormatter(item.updatedAt)}
-                        </Text>
+              <Text
+                style={{
+                  color: 'black',
+                  fontWeight: 600,
+                  fontSize: 18,
+                  fontFamily: 'Poppins-SemiBold',
+                  textAlign: 'center',
+                  marginBottom: 14,
+                  color: accent,
+                }}>
+                Your Previously Issued Books
+              </Text>
+              {userData &&
+                userData.issuedHistory &&
+                userData.issuedHistory.map((item, index) => {
+                  if (item.returned)
+                    return (
+                      <View key={index} style={styles.cardContainer}>
+                        <Image
+                          source={{uri: item.book.image}}
+                          style={styles.bookImage}
+                          width={130}
+                          height={200}
+                        />
+                        <View style={styles.cardDetails}>
+                          <Text style={styles.bookTitle} numberOfLines={2}>
+                            {item.book.name}
+                          </Text>
+                          <Text style={styles.authorText}>Issued On:</Text>
+                          <Text style={styles.authorText}>
+                            {dateFormatter(item.createdAt)}
+                          </Text>
+                          <Text style={styles.authorText}>Returned On:</Text>
+                          <Text style={styles.authorText}>
+                            {dateFormatter(item.updatedAt)}
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                  );
-              })}
-          </View>
-        </ScrollView>
-      )}
-    </SafeAreaView>
+                    );
+                })}
+            </View>
+          </ScrollView>
+        )}
+      </SafeAreaView>
+    </>
   );
 };
 
@@ -294,6 +302,8 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     borderRadius: 5,
     overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   bookImage: {
     width: 130,

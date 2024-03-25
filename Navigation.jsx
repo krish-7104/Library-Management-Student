@@ -2,9 +2,8 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Dashboard from './Screens/Dashboard';
 import Books from './Screens/Books';
-import Wishlist from './Screens/Wishlist';
-import Settings from './Screens/Settings';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MyProfile from './Screens/My Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,8 +15,8 @@ const Navigation = () => {
           let iconName;
           if (route.name === 'Dashboard') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
+          } else if (route.name === 'My Profile') {
+            iconName = focused ? 'happy' : 'happy-outline';
           } else if (route.name === 'Books') {
             iconName = focused ? 'book' : 'book-outline';
           } else if (route.name === 'Bookmarks') {
@@ -35,13 +34,25 @@ const Navigation = () => {
           paddingBottom: 8,
         },
         tabBarLabelStyle: {
-          fontFamily: 'Inter-Medium',
+          fontFamily: 'Poppins-Medium',
         },
       })}
       initialRouteName="Dashboard">
-      <Tab.Screen name="Dashboard" component={Dashboard} />
-      <Tab.Screen name="Books" component={Books} />
-      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="Books"
+        component={Books}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="My Profile"
+        component={MyProfile}
+        options={{headerShown: false}}
+      />
     </Tab.Navigator>
   );
 };

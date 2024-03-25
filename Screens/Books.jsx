@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Image,
@@ -13,32 +13,12 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import {API_LINK} from '../api-link';
+import NavTitle from './Components/NavTitle';
 
-const Books = ({navigation}) => {
+const Books = () => {
   const [books, setBooks] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTintColor: 'black',
-      title: 'Home',
-      headerTitle: () => {
-        return (
-          <Text
-            style={{
-              fontSize: 20,
-              marginTop: 6,
-              marginLeft: -8,
-              color: '#000',
-              fontFamily: 'Poppins-SemiBold',
-            }}>
-            Books
-          </Text>
-        );
-      },
-    });
-  }, [navigation]);
 
   useEffect(() => {
     SearchBookHandler();
@@ -59,11 +39,9 @@ const Books = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {loading && (
-        <ActivityIndicator style={{marginTop: 20}} color={'#7c3aed'} />
-      )}
-      {!loading && (
+    <>
+      <NavTitle title={'Search Books'} />
+      <SafeAreaView style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View
             style={{
@@ -92,26 +70,37 @@ const Books = ({navigation}) => {
               <Ionicons name={'search'} size={24} color={'#7c3aed'} />
             </TouchableOpacity>
           </View>
-          <View style={{width: '100%'}}>
-            {books.map((book, index) => (
-              <View key={index} style={styles.cardContainer}>
-                <Image
-                  source={{uri: book.image}}
-                  style={styles.bookImage}
-                  width={130}
-                  height={200}
-                />
-                <View style={styles.cardDetails}>
-                  <Text style={styles.bookTitle}>{book.name}</Text>
-                  <Text style={styles.authorText}>Author: {book.author}</Text>
-                  <Text style={styles.stockText}>Stock: {book.stock}</Text>
+          {loading && (
+            <ActivityIndicator
+              style={{marginTop: 20}}
+              size={28}
+              color={'#7c3aed'}
+            />
+          )}
+          {!loading && (
+            <View style={{width: '100%'}}>
+              {books.map((book, index) => (
+                <View key={index} style={styles.cardContainer}>
+                  <Image
+                    source={{uri: book.image}}
+                    style={styles.bookImage}
+                    width={120}
+                    height={180}
+                  />
+                  <View style={styles.cardDetails}>
+                    <Text style={styles.bookTitle} numberOfLines={2}>
+                      {book.name}
+                    </Text>
+                    <Text style={styles.authorText}>Author: {book.author}</Text>
+                    <Text style={styles.stockText}>Stock: {book.stock}</Text>
+                  </View>
                 </View>
-              </View>
-            ))}
-          </View>
+              ))}
+            </View>
+          )}
         </ScrollView>
-      )}
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 };
 
@@ -134,9 +123,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   bookImage: {
-    width: 140,
-    height: 220,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
   },
   cardDetails: {
     flex: 1,
