@@ -14,6 +14,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import {API_LINK} from '../api-link';
 import NavTitle from './Components/NavTitle';
+import {accent} from '../colors';
 
 const Books = () => {
   const [books, setBooks] = useState([]);
@@ -31,9 +32,9 @@ const Books = () => {
         `${API_LINK}/book/get-books?search=${search}`,
       );
       setBooks(resp.data.data);
-      setLoading(false);
     } catch (error) {
       console.log(JSON.stringify(error));
+    } finally {
       setLoading(false);
     }
   };
@@ -43,42 +44,30 @@ const Books = () => {
       <NavTitle title={'Search Books'} />
       <SafeAreaView style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollViewContent}>
-          <View
-            style={{
-              backgroundColor: 'white',
-              marginVertical: 12,
-              width: '100%',
-              borderRadius: 4,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              paddingHorizontal: 12,
-              paddingVertical: 0,
-            }}>
+          <View style={styles.searchContainer}>
             <TextInput
               value={search}
               onChangeText={text => setSearch(text)}
               placeholder="Search Book Name.."
               placeholderTextColor={'#00000080'}
-              style={{
-                color: 'black',
-                width: '90%',
-                fontFamily: 'Poppins-Regular',
-              }}
+              style={styles.input}
             />
-            <TouchableOpacity activeOpacity={0.8}>
-              <Ionicons name={'search'} size={24} color={'#7c3aed'} />
+            <TouchableOpacity activeOpacity={0.8} onPress={SearchBookHandler}>
+              <Ionicons
+                name={'search'}
+                size={24}
+                color={styles.searchIcon.color}
+              />
             </TouchableOpacity>
           </View>
-          {loading && (
+          {loading ? (
             <ActivityIndicator
-              style={{marginTop: 20}}
+              style={styles.loadingIndicator}
               size={28}
-              color={'#7c3aed'}
+              color={styles.loadingIndicator.color}
             />
-          )}
-          {!loading && (
-            <View style={{width: '100%'}}>
+          ) : (
+            <View style={styles.booksContainer}>
               {books.map((book, index) => (
                 <View key={index} style={styles.cardContainer}>
                   <Image
@@ -113,6 +102,32 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     alignItems: 'center',
   },
+  searchContainer: {
+    backgroundColor: 'white',
+    marginVertical: 12,
+    width: '100%',
+    borderRadius: 4,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 0,
+  },
+  input: {
+    color: 'black',
+    width: '90%',
+    fontFamily: 'Poppins-Regular',
+  },
+  searchIcon: {
+    color: accent,
+  },
+  loadingIndicator: {
+    marginTop: 20,
+    color: accent,
+  },
+  booksContainer: {
+    width: '100%',
+  },
   cardContainer: {
     width: '100%',
     flexDirection: 'row',
@@ -124,10 +139,6 @@ const styles = StyleSheet.create({
   },
   bookImage: {
     resizeMode: 'contain',
-  },
-  cardDetails: {
-    flex: 1,
-    padding: 10,
   },
   cardDetails: {
     flex: 1,

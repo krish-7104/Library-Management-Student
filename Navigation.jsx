@@ -4,6 +4,7 @@ import Dashboard from './Screens/Dashboard';
 import Books from './Screens/Books';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MyProfile from './Screens/My Profile';
+import {accent} from './colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +25,7 @@ const Navigation = () => {
           }
           return <Ionicons name={iconName} size={24} color={color} />;
         },
-        tabBarActiveTintColor: '#7c3aed',
+        tabBarActiveTintColor: accent,
         tabBarInactiveTintColor: 'gray',
         gestureEnabled: true,
         swipeEnabled: true,

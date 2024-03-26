@@ -48,88 +48,30 @@ const MyProfile = ({navigation}) => {
       <SafeAreaView style={styles.container}>
         {loading && (
           <ActivityIndicator
-            style={{marginTop: 20}}
+            style={styles.loadingIndicator}
             size={28}
-            color={'#7c3aed'}
+            color={accent}
           />
         )}
         {!loading && userData && (
-          <View
-            style={{
-              width: '95%',
-              backgroundColor: 'white',
-              borderRadius: 6,
-              elevation: 2,
-              paddingHorizontal: 10,
-              paddingVertical: 12,
-            }}>
-            <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
-              Name:
-            </Text>
-            <Text
-              style={{
-                color: '#000',
-                fontFamily: 'Poppins-Regular',
-                marginBottom: 8,
-                fontSize: 18,
-              }}>
-              {userData.name}
-            </Text>
-            <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
-              Enrollment No:
-            </Text>
-            <Text
-              style={{
-                color: '#000',
-                fontFamily: 'Poppins-Regular',
-                marginBottom: 8,
-                fontSize: 18,
-              }}>
-              {userData.enrollmentno}
-            </Text>
-            <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
-              Phone No:
-            </Text>
-            <Text
-              style={{
-                color: '#000',
-                fontFamily: 'Poppins-Regular',
-                marginBottom: 8,
-                fontSize: 18,
-              }}>
-              {userData.phonenumber}
-            </Text>
-            <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
-              Email:
-            </Text>
-            <Text
-              style={{
-                color: '#000',
-                fontFamily: 'Poppins-Regular',
-                marginBottom: 8,
-                fontSize: 18,
-              }}>
-              {userData.email}
-            </Text>
-            <Text style={{fontFamily: 'Poppins-Medium', color: accent}}>
-              Gender:
-            </Text>
-            <Text
-              style={{
-                color: '#000',
-                fontFamily: 'Poppins-Regular',
-                marginBottom: 8,
-                fontSize: 18,
-              }}>
-              {userData.gender}
-            </Text>
+          <View style={styles.userDataContainer}>
+            <Text style={styles.userInfoLabel}>Name:</Text>
+            <Text style={styles.userInfo}>{userData.name}</Text>
+            <Text style={styles.userInfoLabel}>Enrollment No:</Text>
+            <Text style={styles.userInfo}>{userData.enrollmentno}</Text>
+            <Text style={styles.userInfoLabel}>Phone No:</Text>
+            <Text style={styles.userInfo}>{userData.phonenumber}</Text>
+            <Text style={styles.userInfoLabel}>Email:</Text>
+            <Text style={styles.userInfo}>{userData.email}</Text>
+            <Text style={styles.userInfoLabel}>Gender:</Text>
+            <Text style={styles.userInfo}>{userData.gender}</Text>
           </View>
         )}
         <TouchableOpacity
-          style={styles.btnCont}
+          style={styles.logoutButton}
           activeOpacity={0.4}
           onPress={logoutHandler}>
-          <Text style={styles.btnText}>Logout</Text>
+          <Text style={styles.logoutButtonText}>Logout</Text>
         </TouchableOpacity>
       </SafeAreaView>
     </>
@@ -146,8 +88,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
-  btnCont: {
-    borderColor: '#7c3aed',
+  loadingIndicator: {
+    marginTop: 20,
+  },
+  userDataContainer: {
+    width: '95%',
+    backgroundColor: 'white',
+    borderRadius: 6,
+    elevation: 2,
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+  },
+  userInfoLabel: {
+    fontFamily: 'Poppins-Medium',
+    color: accent,
+  },
+  userInfo: {
+    color: '#000',
+    fontFamily: 'Poppins-Regular',
+    marginBottom: 8,
+    fontSize: 18,
+  },
+  logoutButton: {
+    borderColor: accent,
     width: '85%',
     borderWidth: 2,
     paddingVertical: 10,
@@ -155,9 +118,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
   },
-  btnText: {
+  logoutButtonText: {
     textAlign: 'center',
-    color: '#7c3aed',
+    color: accent,
     fontSize: 18,
     fontFamily: 'Poppins-Medium',
   },

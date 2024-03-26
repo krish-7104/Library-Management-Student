@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {accent} from '../colors';
 import * as Animated from 'react-native-animatable';
 import Toast from './Components/Toast';
+
 const Login = ({navigation}) => {
   const upperCardRef = useRef(null);
   const lowerCardRef = useRef(null);
@@ -29,7 +30,9 @@ const Login = ({navigation}) => {
       lowerCardRef.current.slideInUp(1000);
     }
   }, []);
+
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const CheckLoginHandler = async () => {
       try {
@@ -57,6 +60,10 @@ const Login = ({navigation}) => {
         try {
           await AsyncStorage.setItem('token', resp.data.data.token);
           navigation.navigate('Home');
+          setValue({
+            email: '',
+            password: '',
+          });
           setLoading(false);
         } catch (e) {}
       } else {
@@ -90,15 +97,7 @@ const Login = ({navigation}) => {
         ref={lowerCardRef}
         animation="slideInUp"
         duration={1000}
-        style={{
-          height: '70%',
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'white',
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-        }}>
+        style={styles.lowerCard}>
         <View style={styles.inputCont}>
           <Text style={styles.labelText}>Email Address</Text>
           <TextInput
@@ -141,6 +140,12 @@ const Login = ({navigation}) => {
 export default Login;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: accent,
+  },
   title: {
     fontSize: 28,
     marginBottom: 20,
@@ -148,11 +153,14 @@ const styles = StyleSheet.create({
     color: 'white',
     letterSpacing: 3,
   },
-  container: {
-    flex: 1,
-    justifyContent: 'flex-end',
+  lowerCard: {
+    height: '70%',
+    width: '100%',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: accent,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   inputCont: {
     width: '85%',
@@ -175,7 +183,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     textAlign: 'right',
     width: '100%',
-    color: '#7c3aed',
+    color: accent,
     fontFamily: 'Poppins-Medium',
   },
   labelText: {
@@ -185,12 +193,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   },
   btnCont: {
-    backgroundColor: '#7c3aed',
+    backgroundColor: accent,
     width: '85%',
     paddingVertical: 10,
     borderRadius: 8,
     elevation: 14,
-    shadowColor: '#7c3aed',
+    shadowColor: accent,
   },
   btnText: {
     textAlign: 'center',

@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     textAlign: 'right',
     width: '100%',
-    color: '#7c3aed',
+    color: accent,
     fontFamily: 'Poppins-Medium',
   },
   labelText: {
@@ -178,12 +178,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   },
   btnCont: {
-    backgroundColor: '#7c3aed',
+    backgroundColor: accent,
     width: '85%',
     paddingVertical: 10,
     borderRadius: 8,
     elevation: 14,
-    shadowColor: '#7c3aed',
+    shadowColor: accent,
   },
   btnText: {
     textAlign: 'center',
