@@ -137,9 +137,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     overflow: 'hidden',
   },
-  bookImage: {
-    resizeMode: 'contain',
-  },
   cardDetails: {
     flex: 1,
     padding: 10,
