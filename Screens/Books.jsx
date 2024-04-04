@@ -9,7 +9,6 @@ import {
   ScrollView,
   TextInput,
   ActivityIndicator,
-  RefreshControl,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
@@ -41,19 +40,10 @@ const Books = () => {
   };
 
   return (
-    <View style={{backgroundColor: accent, flex: 1}}>
+    <>
       <NavTitle title={'Search Books'} />
       <SafeAreaView style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.scrollViewContent}
-          style={{
-            backgroundColor: '#f6f6f6',
-            paddingHorizontal: 20,
-            width: '100%',
-            borderTopLeftRadius: 22,
-            borderTopRightRadius: 22,
-            paddingVertical: 8,
-          }}>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
           <View style={styles.searchContainer}>
             <TextInput
               value={search}
@@ -61,8 +51,14 @@ const Books = () => {
               placeholder="Search Book Name.."
               placeholderTextColor={'#00000080'}
               style={styles.input}
-              selectionColor={accent}
             />
+            <TouchableOpacity activeOpacity={0.8} onPress={SearchBookHandler}>
+              <Ionicons
+                name={'search'}
+                size={24}
+                color={styles.searchIcon.color}
+              />
+            </TouchableOpacity>
           </View>
           {loading ? (
             <ActivityIndicator
@@ -91,47 +87,39 @@ const Books = () => {
               ))}
             </View>
           )}
-          {!loading && books && books.length === 0 && (
-            <Text
-              style={{
-                fontFamily: 'Poppins-Medium',
-                color: 'black',
-                fontSize: 16,
-              }}>
-              No Books Found!
-            </Text>
-          )}
         </ScrollView>
       </SafeAreaView>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
   },
   scrollViewContent: {
     alignItems: 'center',
   },
   searchContainer: {
     backgroundColor: 'white',
-    marginTop: 12,
-    marginBottom: 16,
+    marginVertical: 12,
     width: '100%',
+    borderRadius: 4,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 12,
     paddingVertical: 0,
   },
   input: {
     color: 'black',
-    width: '100%',
+    width: '90%',
     fontFamily: 'Poppins-Regular',
-    borderRadius: 100,
-    borderWidth: 2,
-    paddingHorizontal: 12,
-    borderColor: accent,
+  },
+  searchIcon: {
+    color: accent,
   },
   loadingIndicator: {
     marginTop: 20,

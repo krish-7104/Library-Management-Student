@@ -6,7 +6,6 @@ import {
   View,
   Image,
   ActivityIndicator,
-  RefreshControl,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
@@ -51,25 +50,18 @@ const Dashboard = ({navigation}) => {
   };
 
   return (
-    <View style={{backgroundColor: accent, flex: 1}}>
+    <>
       <NavTitle title={'Student Dashboard'} />
       <SafeAreaView
         style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         {loading && (
           <View>
-            <ActivityIndicator size={34} color={'white'} />
+            <ActivityIndicator size={34} color={accent} />
           </View>
         )}
         {!loading && (
           <ScrollView
-            refreshControl={<RefreshControl onRefresh={getUserData} />}
-            style={{
-              backgroundColor: '#f6f6f6',
-              paddingHorizontal: 10,
-              width: '100%',
-              borderTopLeftRadius: 22,
-              borderTopRightRadius: 22,
-            }}
+            style={{width: '94%'}}
             showsVerticalScrollIndicator={false}>
             <Text
               style={{
@@ -80,9 +72,8 @@ const Dashboard = ({navigation}) => {
                 fontWeight: 600,
                 fontSize: 20,
                 fontFamily: 'Poppins-SemiBold',
-                textAlign: 'center',
               }}>
-              Welcome {userData.name.split(' ')[0]} 👋
+              Welcome {userData.name} 👋
             </Text>
             <View
               style={{
@@ -208,20 +199,6 @@ const Dashboard = ({navigation}) => {
               </Text>
               {userData &&
                 userData.issuedHistory &&
-                userData.issuedHistory.filter(item => !item.returned).length ===
-                  0 && (
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontFamily: 'Poppins-Regular',
-                      textAlign: 'center',
-                      fontSize: 16,
-                    }}>
-                    You Have No Active Issued Books
-                  </Text>
-                )}
-              {userData &&
-                userData.issuedHistory &&
                 userData.issuedHistory.map((item, index) => {
                   if (!item.returned) {
                     return (
@@ -272,20 +249,6 @@ const Dashboard = ({navigation}) => {
               </Text>
               {userData &&
                 userData.issuedHistory &&
-                userData.issuedHistory.filter(item => item.returned).length ===
-                  0 && (
-                  <Text
-                    style={{
-                      color: 'black',
-                      fontFamily: 'Poppins-Regular',
-                      textAlign: 'center',
-                      fontSize: 16,
-                    }}>
-                    You Have No Active Issued Books
-                  </Text>
-                )}
-              {userData &&
-                userData.issuedHistory &&
                 userData.issuedHistory.map((item, index) => {
                   if (item.returned)
                     return (
@@ -316,7 +279,7 @@ const Dashboard = ({navigation}) => {
           </ScrollView>
         )}
       </SafeAreaView>
-    </View>
+    </>
   );
 };
 

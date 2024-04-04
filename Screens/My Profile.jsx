@@ -43,7 +43,7 @@ const MyProfile = ({navigation}) => {
     } catch (error) {}
   };
   return (
-    <View style={{backgroundColor: accent, flex: 1}}>
+    <>
       <NavTitle title={'My Profile'} />
       <SafeAreaView style={styles.container}>
         {loading && (
@@ -74,7 +74,7 @@ const MyProfile = ({navigation}) => {
           <Text style={styles.logoutButtonText}>Logout</Text>
         </TouchableOpacity>
       </SafeAreaView>
-    </View>
+    </>
   );
 };
 
@@ -87,15 +87,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     alignItems: 'center',
     marginTop: 10,
-    backgroundColor: 'white',
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
   },
   loadingIndicator: {
     marginTop: 20,
   },
   userDataContainer: {
     width: '95%',
+    backgroundColor: 'white',
+    borderRadius: 6,
+    elevation: 2,
     paddingHorizontal: 10,
     paddingVertical: 12,
   },
