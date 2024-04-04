@@ -52,13 +52,6 @@ const Books = () => {
               placeholderTextColor={'#00000080'}
               style={styles.input}
             />
-            <TouchableOpacity activeOpacity={0.8} onPress={SearchBookHandler}>
-              <Ionicons
-                name={'search'}
-                size={24}
-                color={styles.searchIcon.color}
-              />
-            </TouchableOpacity>
           </View>
           {loading ? (
             <ActivityIndicator
@@ -88,6 +81,16 @@ const Books = () => {
             </View>
           )}
         </ScrollView>
+        {!loading && books && books.length === 0 && (
+          <Text
+            style={{
+              fontFamily: 'Poppins-Medium',
+              color: 'black',
+              fontSize: 16,
+            }}>
+            No Books Found!
+          </Text>
+        )}
       </SafeAreaView>
     </>
   );

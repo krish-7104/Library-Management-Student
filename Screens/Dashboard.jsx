@@ -6,6 +6,7 @@ import {
   View,
   Image,
   ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
@@ -61,6 +62,7 @@ const Dashboard = ({navigation}) => {
         )}
         {!loading && (
           <ScrollView
+            refreshControl={<RefreshControl onRefresh={getUserData} />}
             style={{width: '94%'}}
             showsVerticalScrollIndicator={false}>
             <Text
@@ -73,7 +75,7 @@ const Dashboard = ({navigation}) => {
                 fontSize: 20,
                 fontFamily: 'Poppins-SemiBold',
               }}>
-              Welcome {userData.name} 👋
+              Welcome {userData.name.split(' ')[0]} 👋
             </Text>
             <View
               style={{
@@ -199,6 +201,20 @@ const Dashboard = ({navigation}) => {
               </Text>
               {userData &&
                 userData.issuedHistory &&
+                userData.issuedHistory.filter(item => !item.returned).length ===
+                  0 && (
+                  <Text
+                    style={{
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      textAlign: 'center',
+                      fontSize: 16,
+                    }}>
+                    You Have No Active Issued Books
+                  </Text>
+                )}
+              {userData &&
+                userData.issuedHistory &&
                 userData.issuedHistory.map((item, index) => {
                   if (!item.returned) {
                     return (
@@ -247,6 +263,20 @@ const Dashboard = ({navigation}) => {
                 }}>
                 Your Previously Issued Books
               </Text>
+              {userData &&
+                userData.issuedHistory &&
+                userData.issuedHistory.filter(item => item.returned).length ===
+                  0 && (
+                  <Text
+                    style={{
+                      color: 'black',
+                      fontFamily: 'Poppins-Regular',
+                      textAlign: 'center',
+                      fontSize: 16,
+                    }}>
+                    You Have No Active Issued Books
+                  </Text>
+                )}
               {userData &&
                 userData.issuedHistory &&
                 userData.issuedHistory.map((item, index) => {
