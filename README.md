@@ -1,4 +1,4 @@
-# Library Management System Admin
+# Library Management System Student App
 
 This Library Management System offers a comprehensive solution for efficiently managing library resources and facilitating seamless interactions between administrators and students. With features for both admin and student users, this system streamlines book management, issuance, returns, and fine tracking. The integration of auto fine increment and email reminders enhances user experience and ensures timely returns.
 
