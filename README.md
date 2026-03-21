@@ -1,34 +1,50 @@
-# Library Management System Student App
+# Welcome to your Expo app 👋
 
-This Library Management System offers a comprehensive solution for efficiently managing library resources and facilitating seamless interactions between administrators and students. With features for both admin and student users, this system streamlines book management, issuance, returns, and fine tracking. The integration of auto fine increment and email reminders enhances user experience and ensures timely returns.
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+## Get started
 
-## Tech Stack
+1. Install dependencies
 
-React Native
+   ```bash
+   npm install
+   ```
 
-## Student App Features
-- Access a personalized dashboard displaying remaining book slots, active issued books, and issuance history for easy tracking.
-- Seamlessly search for available books within the library and view detailed book profiles.
-- Enjoy a user-friendly interface for effortless navigation and utilization of library resources.
+2. Start the app
 
+   ```bash
+   npx expo start
+   ```
 
-## Admin Panel Features
-- Add, edit, and search books effortlessly.
-- Manage book issuance and returns efficiently, with a clear overview of all allotments.
-- Access comprehensive student data for effective library management.
-- Utilize a user-friendly dashboard for quick insights and control over library operations.
-- Maintain records of fines paid for overdue books.
-- Efficiently manage admin accounts with admin management features.
-- Implement auto fine increment and auto-mail reminders for impending return dates, enhancing user compliance.
+In the output, you'll find options to open the app in a
 
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-Check out Admin Panel Github Repo: [*Click Here*](https://github.com/krish-7104/Library-Management-Admin)
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## For Any Doubt Fell Free To Contact Me 🚀
+## Get a fresh project
 
-- [My Website](http://krishjotaniya.netlify.app/)
-- [Linkedin](https://www.linkedin.com/in/krishjotaniya/)
-- [krishjotaniya71@gmail.com](mailto:krishjotaniya71@gmail.com)
+When you're ready, run:
 
+```bash
+npm run reset-project
+```
 
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+
+## Learn more
+
+To learn more about developing your project with Expo, look at the following resources:
+
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+
+## Join the community
+
+Join our community of developers creating universal apps.
+
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
